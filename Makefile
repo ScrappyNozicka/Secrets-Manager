@@ -8,7 +8,7 @@ PROJECT_NAME = Project-01
 REGION = eu-west-2
 PYTHON_INTERPRETER = python
 WD=$(shell pwd)
-PYTHONPATH=${WD}:${WD}/src/extract:${WD}/src/transform:${WD}/src/transform/transform_utils:${WD}/src/load
+PYTHONPATH=${WD}
 SHELL := /bin/bash
 PROFILE = default
 PIP:=pip
@@ -67,11 +67,11 @@ security-test:
 
 ## Run the black code check
 run-black:
-	$(call execute_in_env, black --line-length 79 ./src/*/*/*.py ./test/*/*.py)
+	$(call execute_in_env, black --line-length 79 ./src/*/*.py ./test/*/*.py)
 
 ## Run flake8 code check
 run-flake8:
-	$(call execute_in_env, flake8  ./src/*/*/*.py ./test/*/*.py)	
+	$(call execute_in_env, flake8  ./src/*/*.py ./test/*/*.py)	
 
 ## Run the unit tests
 unit-test:
