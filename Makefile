@@ -48,6 +48,10 @@ bandit:
 black:
 	$(call execute_in_env, $(PIP) install black)
 
+## Install flake8
+flake8:
+	$(call execute_in_env, $(PIP) install flake8)
+
 ## Install coverage
 coverage:
 	$(call execute_in_env, $(PIP) install pytest-cov)
@@ -57,7 +61,7 @@ pip-audit:
 	$(call execute_in_env, $(PIP) install pip-audit)	
 
 ## Set up dev requirements (bandit, black & coverage)
-dev-setup: bandit black coverage pip-audit
+dev-setup: bandit black coverage pip-audit flake8
 
 # Build / Run
 
