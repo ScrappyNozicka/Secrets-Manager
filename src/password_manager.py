@@ -7,8 +7,8 @@ from src.util.util_funcs import (
 
 
 def initial_script():
-    print("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:
-    "")
+    print("""Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:
+    """)
     response = str(input())
     if response.lower() not in "erdlx":
         print("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:")
