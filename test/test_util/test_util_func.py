@@ -20,9 +20,8 @@ def aws_mock():
         os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
 
         secretsmanager = boto3.client(
-            "secretsmanager",
-            region_name="eu-west-2"
-            )
+            "secretsmanager", region_name="eu-west-2"
+        )
         yield secretsmanager
 
 
@@ -82,9 +81,8 @@ def test_retrieve_secret(aws_mock):
     test_identifier = "SteveBigSsecretVer07"
 
     result = retrieve_secret(
-        test_identifier,
-        secretsmanager_client=secretsmanager
-        )
+        test_identifier, secretsmanager_client=secretsmanager
+    )
     assert (
         result["SecretString"]
         == '{"username": "Steve2000", "password": "IAmtheKingOfTheWorld2001"}'
@@ -93,10 +91,10 @@ def test_retrieve_secret(aws_mock):
         assert file
         assert (
             file.read()
-            == '''{
+            == """{
             "username": "Steve2000",
             "password": "IAmtheKingOfTheWorld2001"
-            }'''
+            }"""
         )
 
 

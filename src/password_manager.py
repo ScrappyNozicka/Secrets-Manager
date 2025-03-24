@@ -1,4 +1,4 @@
-from src.util.util_funcs import (
+from src.util.util_func import (
     write_secret,
     list_secrets,
     retrieve_secret,
