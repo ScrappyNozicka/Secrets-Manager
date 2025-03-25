@@ -23,8 +23,8 @@ jobs:
         run: make requirements
       - name: Run dev-setup
         run: make dev-setup
-          - name: Set AWS credentials from GitHub Secrets
-      - run: |
+      - name: Set AWS credentials from GitHub Secrets
+        run: |
         echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
         echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
       - name: build and run checks
