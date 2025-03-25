@@ -2,8 +2,8 @@ import boto3
 import json
 import os
 
-AWS_ACCESS_KEY_ID = os.environ("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ("AWS_SECRET_ACCESS_KEY")
+AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
+AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
 
 client = boto3.client(
     "secretsmanager",
