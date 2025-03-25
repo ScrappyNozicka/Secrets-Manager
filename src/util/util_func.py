@@ -17,6 +17,7 @@ client = boto3.client(
 #     assert os.environ.get("AWS_ACCESS_KEY_ID") == "fake_access_key"
 #     assert os.environ.get("AWS_SECRET_ACCESS_KEY") == "fake_secret_key"
 
+
 def write_secret(
     secret_identifier, user_id, password, secretsmanager_client=client
 ):

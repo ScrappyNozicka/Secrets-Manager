@@ -21,7 +21,7 @@ import pytest
 #     # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
 #     # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
 #     # os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
-   
+
 #     with mock_aws():
 #         # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
 #         # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
@@ -33,6 +33,7 @@ import pytest
 #                 "secretsmanager", region_name="eu-west-2"
 #             )
 #         yield secretsmanager
+
 
 @mock_aws
 def test_write_secret():
@@ -47,7 +48,12 @@ def test_write_secret():
     #     secret_identifier=test_identifier, secretsmanager_client=secretsmanager
     # )
 
-    write_result = secretsmanager.create_secret(Name=test_identifier, SecretString=test_password)
+    # write_result = secretsmanager.create_secret(
+    #     Name=test_identifier, SecretString=test_password
+    # )
+    write_result = write_secret(
+    test_identifier, test_user_id, test_password, secretsmanager_client=secretsmanager
+)
     assert write_result["Name"] == "SteveBigSsecretVer01"
     assert write_result["ResponseMetadata"]["HTTPStatusCode"] == 200
 
@@ -83,7 +89,7 @@ def test_write_secret():
 
 # def test_retrieve_secret(aws_mock):
 #     secretsmanager = aws_mock
-    
+
 
 #     test_identifier = "SteveBigSsecretVer07"
 
