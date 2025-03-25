@@ -35,7 +35,7 @@ import pytest
 #         yield secretsmanager
 
 @mock_aws
-def test_write_secret(aws_mock):
+def test_write_secret():
     # secretsmanager = aws_mock
     secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
