@@ -29,8 +29,8 @@ def test_write_secret(aws_mock):
     secretsmanager = aws_mock
 
     test_identifier = "SteveBigSsecretVer01"
-    test_user_id = "Steve2001"
-    test_password = "IAmtheKingOfTheWorld2001"
+    test_user_id = "Steve2000"
+    test_password = "IAmtheKingOfTheWorld2000"
 
     delete_secret(
         secret_identifier=test_identifier, secretsmanager_client=secretsmanager
@@ -50,11 +50,11 @@ def test_list_secrets(aws_mock):
     secretsmanager = aws_mock
 
     test_identifier1 = "SteveBigSsecretVer02"
-    test_user_id1 = "Steve2002"
-    test_password1 = "IAmtheKingOfTheWorld2002"
+    test_user_id1 = "Steve2001"
+    test_password1 = "IAmtheKingOfTheWorld2001"
     test_identifier2 = "SteveBigSsecretVer03"
-    test_user_id2 = "Steve2003"
-    test_password2 = "IAmtheKingOfTheWorld2003"
+    test_user_id2 = "Steve2002"
+    test_password2 = "IAmtheKingOfTheWorld2002"
 
     write_secret(
         test_identifier1,
@@ -68,17 +68,11 @@ def test_list_secrets(aws_mock):
         test_password2,
         secretsmanager_client=secretsmanager,
     )
-    
-    secrets = secretsmanager.list_secrets()
-    assert len(secrets["SecretList"]) == 2  # The list should contain two secrets now.
-    assert {s["Name"] for s in secrets["SecretList"]} == {"SteveBigSsecretVer02", "SteveBigSsecretVer03"}
-        # secrets = secretsmanager.list_secrets()
-        # assert len(secrets['SecretList']) == 2
 
-        # result = list_secrets(secretsmanager_client=secretsmanager)
+    result = list_secrets(secretsmanager_client=secretsmanager)
 
-        # assert len(result) == 2
-        # assert result == ["SteveBigSsecretVer02", "SteveBigSsecretVer03"]
+    assert len(result) == 2
+    assert result == ["SteveBigSsecretVer02", "SteveBigSsecretVer03"]
 
 
 def test_retrieve_secret(aws_mock):
