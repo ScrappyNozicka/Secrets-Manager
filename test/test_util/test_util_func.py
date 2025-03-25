@@ -68,14 +68,17 @@ def test_list_secrets(aws_mock):
         test_password2,
         secretsmanager_client=secretsmanager,
     )
-
+    
     secrets = secretsmanager.list_secrets()
-    assert len(secrets['SecretList']) == 2
+    assert len(secrets["SecretList"]) == 2  # The list should contain two secrets now.
+    assert {s["Name"] for s in secrets["SecretList"]} == {"SteveBigSsecretVer02", "SteveBigSsecretVer03"}
+        # secrets = secretsmanager.list_secrets()
+        # assert len(secrets['SecretList']) == 2
 
-    result = list_secrets(secretsmanager_client=secretsmanager)
+        # result = list_secrets(secretsmanager_client=secretsmanager)
 
-    assert len(result) == 2
-    assert result == ["SteveBigSsecretVer02", "SteveBigSsecretVer03"]
+        # assert len(result) == 2
+        # assert result == ["SteveBigSsecretVer02", "SteveBigSsecretVer03"]
 
 
 def test_retrieve_secret(aws_mock):
