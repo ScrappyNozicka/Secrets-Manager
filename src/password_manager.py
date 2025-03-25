@@ -6,7 +6,7 @@ from src.util.util_func import (
 )
 
 
-def initial_script():
+def password_manager():
     print("""Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:
     """)
     response = str(input())
