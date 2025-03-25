@@ -10,17 +10,23 @@ import os
 import pytest
 
 
+os.environ["AWS_ACCESS_KEY_ID"] = "testing"
+os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
+os.environ["AWS_SECURITY_TOKEN"] = "testing"
+os.environ["AWS_SESSION_TOKEN"] = "testing"
+os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
+
 @pytest.fixture(scope="function")
 def aws_mock():
-    os.environ["AWS_ACCESS_KEY_ID"] = "testing"
-    os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
-    os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
+    # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
+    # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
+    # os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
    
     with mock_aws():
         # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
         # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
-        # # os.environ["AWS_SECURITY_TOKEN"] = "testing"
-        # # os.environ["AWS_SESSION_TOKEN"] = "testing"
+        # os.environ["AWS_SECURITY_TOKEN"] = "testing"
+        # os.environ["AWS_SESSION_TOKEN"] = "testing"
         # os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
 
         secretsmanager = boto3.client(
