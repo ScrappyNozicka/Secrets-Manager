@@ -12,12 +12,16 @@ import pytest
 
 @pytest.fixture(scope="function")
 def aws_mock():
+    os.environ["AWS_ACCESS_KEY_ID"] = "testing"
+    os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
+    os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
+   
     with mock_aws():
-        os.environ["AWS_ACCESS_KEY_ID"] = "testing"
-        os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
-        # os.environ["AWS_SECURITY_TOKEN"] = "testing"
-        # os.environ["AWS_SESSION_TOKEN"] = "testing"
-        os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
+        # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
+        # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
+        # # os.environ["AWS_SECURITY_TOKEN"] = "testing"
+        # # os.environ["AWS_SESSION_TOKEN"] = "testing"
+        # os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
 
         secretsmanager = boto3.client(
                 "secretsmanager", region_name="eu-west-2"
@@ -26,7 +30,7 @@ def aws_mock():
 
 
 def test_write_secret(aws_mock):
-    secretsmanager = aws_mock
+    # secretsmanager = aws_mock
 
     test_identifier = "SteveBigSsecretVer01"
     test_user_id = "Steve2000"
@@ -40,7 +44,7 @@ def test_write_secret(aws_mock):
         test_identifier,
         test_user_id,
         test_password,
-        aws_mock,
+        aws_mock
     )
     assert write_result["Name"] == "SteveBigSsecretVer01"
     assert write_result["ResponseMetadata"]["HTTPStatusCode"] == 200
