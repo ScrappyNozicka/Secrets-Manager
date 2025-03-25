@@ -5,7 +5,7 @@ from src.util.util_func import (
     delete_secret,
 )
 import boto3
-from moto import mock_aws
+from moto import mock_secretsmanager
 import os
 import pytest
 
