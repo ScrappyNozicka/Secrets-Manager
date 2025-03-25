@@ -5,7 +5,7 @@ from src.util.util_func import (
     delete_secret,
 )
 import boto3
-from moto import mock_secretsmanager
+from moto import mock
 import os
 import pytest
 
@@ -24,7 +24,7 @@ def aws_mock():
         )
     yield secretsmanager
 
-@mock_secretsmanager
+@mock.secretsmanager
 def test_write_secret(aws_mock):
     secretsmanager = aws_mock
 
