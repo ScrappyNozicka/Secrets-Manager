@@ -24,7 +24,7 @@ def aws_mock():
             )
         yield secretsmanager
 
-@mock_aws.secretsmanager
+@mock_aws
 def test_write_secret(aws_mock):
     secretsmanager = aws_mock
 
