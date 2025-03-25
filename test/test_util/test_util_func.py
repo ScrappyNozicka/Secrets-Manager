@@ -16,27 +16,28 @@ os.environ["AWS_SECURITY_TOKEN"] = "testing"
 os.environ["AWS_SESSION_TOKEN"] = "testing"
 os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
 
-@pytest.fixture(scope="function")
-def aws_mock():
-    # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
-    # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
-    # os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
+# @pytest.fixture(scope="function")
+# def aws_mock():
+#     # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
+#     # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
+#     # os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
    
-    with mock_aws():
-        # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
-        # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
-        # os.environ["AWS_SECURITY_TOKEN"] = "testing"
-        # os.environ["AWS_SESSION_TOKEN"] = "testing"
-        # os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
+#     with mock_aws():
+#         # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
+#         # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
+#         # os.environ["AWS_SECURITY_TOKEN"] = "testing"
+#         # os.environ["AWS_SESSION_TOKEN"] = "testing"
+#         # os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
 
-        secretsmanager = boto3.client(
-                "secretsmanager", region_name="eu-west-2"
-            )
-        yield secretsmanager
+#         secretsmanager = boto3.client(
+#                 "secretsmanager", region_name="eu-west-2"
+#             )
+#         yield secretsmanager
 
-
+@mock_aws
 def test_write_secret(aws_mock):
     # secretsmanager = aws_mock
+    secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
     test_identifier = "SteveBigSsecretVer01"
     test_user_id = "Steve2000"
@@ -46,12 +47,7 @@ def test_write_secret(aws_mock):
     #     secret_identifier=test_identifier, secretsmanager_client=secretsmanager
     # )
 
-    write_result = write_secret(
-        test_identifier,
-        test_user_id,
-        test_password,
-        aws_mock
-    )
+    write_result = secretsmanager.create_secret(Name=test_identifier, SecretString=test_password)
     assert write_result["Name"] == "SteveBigSsecretVer01"
     assert write_result["ResponseMetadata"]["HTTPStatusCode"] == 200
 

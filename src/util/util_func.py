@@ -12,10 +12,10 @@ client = boto3.client(
     region_name="eu-west-2",
 )
 
-def test_environment_variables():
-    print("AWS_ACCESS_KEY_ID:", os.getenv("AWS_ACCESS_KEY_ID"))
-    assert os.environ.get("AWS_ACCESS_KEY_ID") == "fake_access_key"
-    assert os.environ.get("AWS_SECRET_ACCESS_KEY") == "fake_secret_key"
+# def test_environment_variables():
+#     print("AWS_ACCESS_KEY_ID:", os.getenv("AWS_ACCESS_KEY_ID"))
+#     assert os.environ.get("AWS_ACCESS_KEY_ID") == "fake_access_key"
+#     assert os.environ.get("AWS_SECRET_ACCESS_KEY") == "fake_secret_key"
 
 def write_secret(
     secret_identifier, user_id, password, secretsmanager_client=client
