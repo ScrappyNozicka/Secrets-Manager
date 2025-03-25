@@ -26,12 +26,12 @@ def password_manager():
             print("Secret saved.")
         except:
             print("Invalid name. Must be a valid name containing alphanumeric characters, or any of the following: -/_+=.@!")
-        initial_script()
+        password_manager()
 
     if response.lower() == "l":
         result = list_secrets()
         print(f"{len(result)} secrets available.\n{result}")
-        initial_script()
+        password_manager()
 
     if response.lower() == "r":
         response = str(input("Specifiy secret to retrieve:"))
@@ -40,7 +40,7 @@ def password_manager():
             print("Secrets stored in local file secrets.txt")
         except:
             print("That is not a valid secret.")
-        initial_script()
+        password_manager()
 
     if response.lower() == "d":
         response = str(input("Specifiy secret to delete:"))
@@ -49,8 +49,8 @@ def password_manager():
             print("Deleted.")
         else:
             print("Secret not found, please try again.")
-        initial_script()
+        password_manager()
 
 
 if __name__ == "__main__":
-    initial_script()
+    password_manager()
