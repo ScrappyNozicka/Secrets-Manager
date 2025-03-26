@@ -7,15 +7,13 @@ from src.util.util_func import (
 
 
 def password_manager():
-    print("""Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:
-    """)
-    response = str(input())
-    if response.lower() not in "erdlx":
-        print("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:")
-        response = str(input())
+    response = str(input('Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:'))
+    while response.lower() not in "erdlx":
+        response = str(input("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:"))
 
     if response.lower() == "x":
         print("Thank you. Goodbye.")
+        return
 
     if response.lower() == "e":
         secret_identifier = str(input("Secret Identifier:"))
