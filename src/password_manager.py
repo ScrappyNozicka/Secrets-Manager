@@ -32,7 +32,7 @@ def password_manager():
         password_manager()
 
     if response.lower() == "r":
-        response = str(input("Specifiy secret to retrieve:"))
+        response = str(input("Specify secret to retrieve:"))
         try:
             retrieve_secret(response)
             print("Secrets stored in local file secrets.txt")
@@ -41,7 +41,7 @@ def password_manager():
         password_manager()
 
     if response.lower() == "d":
-        response = str(input("Specifiy secret to delete:"))
+        response = str(input("Specify secret to delete:"))
         if response in list_secrets():
             delete_secret(response)
             print("Deleted.")
