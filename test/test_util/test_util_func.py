@@ -9,131 +9,131 @@ from moto import mock_aws
 import os
 import pytest
 
-
-# os.environ["AWS_ACCESS_KEY_ID"] = "testing"
-# os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
-# os.environ["AWS_SECURITY_TOKEN"] = "testing"
-# os.environ["AWS_SESSION_TOKEN"] = "testing"
-# os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
-
-# @pytest.fixture(scope="function")
-# def aws_mock():
-#     # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
-#     # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
-#     # os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
-
-#     with mock_aws():
-#         # os.environ["AWS_ACCESS_KEY_ID"] = "testing"
-#         # os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
-#         # os.environ["AWS_SECURITY_TOKEN"] = "testing"
-#         # os.environ["AWS_SESSION_TOKEN"] = "testing"
-#         # os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
-
-#         secretsmanager = boto3.client(
-#                 "secretsmanager", region_name="eu-west-2"
-#             )
-#         yield secretsmanager
-
-
 @mock_aws
 def test_write_secret():
-    # secretsmanager = aws_mock
     secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
     test_identifier = "SteveBigSsecretVer01"
-    test_user_id = "Steve2000"
-    test_password = "IAmtheKingOfTheWorld2000"
+    test_user_id = "Steve2001"
+    test_password = "IAmtheKingOfTheWorld2001"
 
-    # delete_secret(
-    #     secret_identifier=test_identifier, secretsmanager_client=secretsmanager
-    # )
-
-    # write_result = secretsmanager.create_secret(
-    #     Name=test_identifier, SecretString=test_password
-    # )
     write_result = write_secret(
     test_identifier, test_user_id, test_password, secretsmanager_client=secretsmanager
 )
     assert write_result["Name"] == "SteveBigSsecretVer01"
     assert write_result["ResponseMetadata"]["HTTPStatusCode"] == 200
 
+@mock_aws
+def test_list_secrets():
+    secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
-# def test_list_secrets(aws_mock):
-#     secretsmanager = aws_mock
+    test_identifier_01 = "SteveBigSsecretVer02"
+    test_user_id_01 = "Steve2002"
+    test_password_01 = "IAmtheKingOfTheWorld2002"
 
-#     test_identifier1 = "SteveBigSsecretVer02"
-#     test_user_id1 = "Steve2001"
-#     test_password1 = "IAmtheKingOfTheWorld2001"
-#     test_identifier2 = "SteveBigSsecretVer03"
-#     test_user_id2 = "Steve2002"
-#     test_password2 = "IAmtheKingOfTheWorld2002"
+    test_identifier_02 = "SteveBigSsecretVer03"
+    test_user_id_02 = "Steve2003"
+    test_password_02 = "IAmtheKingOfTheWorld2003"
 
-#     write_secret(
-#         test_identifier1,
-#         test_user_id1,
-#         test_password1,
-#         secretsmanager_client=secretsmanager,
-#     )
-#     write_secret(
-#         test_identifier2,
-#         test_user_id2,
-#         test_password2,
-#         secretsmanager_client=secretsmanager,
-#     )
+    write_secret(
+        test_identifier_01,
+        test_user_id_01,
+        test_password_01,
+        secretsmanager_client=secretsmanager,
+    )
+    write_secret(
+        test_identifier_02,
+        test_user_id_02,
+        test_password_02,
+        secretsmanager_client=secretsmanager,
+    )
 
-#     result = list_secrets(secretsmanager_client=secretsmanager)
+    result = list_secrets(secretsmanager_client=secretsmanager)
 
-#     assert len(result) == 2
-#     assert result == ["SteveBigSsecretVer02", "SteveBigSsecretVer03"]
+    assert len(result) == 2
+    assert result == ["SteveBigSsecretVer02", "SteveBigSsecretVer03"]
+
+@mock_aws
+def test_retrieve_secret():
+    secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
+
+    test_identifier = "SteveBigSsecretVer04"
+    test_user_id = "Steve2004"
+    test_password = "IAmtheKingOfTheWorld2004"
+
+    write_secret(
+    test_identifier, test_user_id, test_password, secretsmanager_client=secretsmanager
+)
+
+    result = retrieve_secret(
+        test_identifier, secretsmanager_client=secretsmanager
+    )
+
+    assert (
+        result["SecretString"]
+        == '{"username": "Steve2004", "password": "IAmtheKingOfTheWorld2004"}'
+    )
+    with open("secrets.txt", "r", encoding="UTF-8") as file:
+        assert file
+        assert (
+            file.read()
+            == """{"username": "Steve2004", "password": "IAmtheKingOfTheWorld2004"}"""
+        )
+
+@mock_aws
+def test_delete_password():
+    secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
+
+    test_identifier_01 = "SteveBigSsecretVer05"
+    test_user_id_01 = "Steve2005"
+    test_password_01 = "IAmtheKingOfTheWorld2005"
+
+    test_identifier_02 = "SteveBigSsecretVer06"
+    test_user_id_02 = "Steve2006"
+    test_password_02 = "IAmtheKingOfTheWorld2006"
+
+    test_identifier_03 = "SteveBigSsecretVer07"
+    test_user_id_03 = "Steve2007"
+    test_password_03 = "IAmtheKingOfTheWorld2007"
+
+    write_secret(
+        test_identifier_01,
+        test_user_id_01,
+        test_password_01,
+        secretsmanager_client=secretsmanager,
+    )
+    write_secret(
+        test_identifier_02,
+        test_user_id_02,
+        test_password_02,
+        secretsmanager_client=secretsmanager,
+    )
+    write_result = write_secret(
+        test_identifier_03,
+        test_user_id_03,
+        test_password_03,
+        secretsmanager_client=secretsmanager,
+    )
 
 
-# def test_retrieve_secret(aws_mock):
-#     secretsmanager = aws_mock
+    assert write_result["Name"] == "SteveBigSsecretVer07"
+    assert write_result["ResponseMetadata"]["HTTPStatusCode"] == 200
 
+    result_all = list_secrets(secretsmanager_client=secretsmanager)
 
-#     test_identifier = "SteveBigSsecretVer07"
+    assert len(result_all) == 3
+    assert result_all == [
+        "SteveBigSsecretVer05",
+        "SteveBigSsecretVer06",
+        "SteveBigSsecretVer07"
+    ]
 
-#     result = retrieve_secret(
-#         test_identifier, secretsmanager_client=secretsmanager
-#     )
-#     assert (
-#         result["SecretString"]
-#         == '{"username": "Steve2000", "password": "IAmtheKingOfTheWorld2001"}'
-#     )
-#     with open("SteveBigSsecretVer07.txt", "r", encoding="UTF-8") as file:
-#         assert file
-#         assert (
-#             file.read()
-#             == """{
-#             "username": "Steve2000",
-#             "password": "IAmtheKingOfTheWorld2001"
-#             }"""
-#         )
+    delete_secret(test_identifier_03, secretsmanager_client=secretsmanager)
 
+    result_deletion = list_secrets(secretsmanager_client=secretsmanager)
 
-# def test_delete_password(aws_mock):
-#     secretsmanager = aws_mock
-
-#     test_identifier = "SteveBigSsecretVer11"
-#     test_user_id = "Steve2000"
-#     test_password = "IAmtheKingOfTheWorld2001"
-
-#     write_result = write_secret(
-#         test_identifier,
-#         test_user_id,
-#         test_password,
-#         secretsmanager_client=secretsmanager,
-#     )
-#     assert write_result["Name"] == "SteveBigSsecretVer11"
-#     assert write_result["ResponseMetadata"]["HTTPStatusCode"] == 200
-
-#     result = list_secrets(secretsmanager_client=secretsmanager)
-
-#     assert len(result) == 5
-#     assert result == [
-#         "SteveBigSsecretVer08",
-#         "SteveBigSsecretVer09",
-#         "SteveBigSsecretVer07",
-#         "SteveBigSsecretVer10",
-#         "SteveBigSsecretVer100",
-#     ]
+    assert len(result_deletion) == 2
+    assert result_deletion == [
+        "SteveBigSsecretVer05",
+        "SteveBigSsecretVer06"
+    ]
