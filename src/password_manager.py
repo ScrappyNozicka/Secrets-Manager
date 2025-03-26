@@ -4,7 +4,7 @@ from src.util.util_func import (
     retrieve_secret,
     delete_secret,
 )
-
+import re
 
 def password_manager():
     response = str(input('Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:'))
@@ -19,10 +19,10 @@ def password_manager():
         secret_identifier = str(input("Secret Identifier:"))
         user_id = str(input("UserID:"))
         password = str(input("Password:"))
-        try:
+        if re.match(r'^[a-zA-Z0-9\-/_+=\.@!]*$', secret_identifier):
             write_secret(secret_identifier, user_id, password)
             print("Secret saved.")
-        except:
+        else:
             print("Invalid name. Must be a valid name containing alphanumeric characters, or any of the following: -/_+=.@!")
         password_manager()
 
