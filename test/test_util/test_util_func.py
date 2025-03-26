@@ -6,8 +6,7 @@ from src.util.util_func import (
 )
 import boto3
 from moto import mock_aws
-import os
-import pytest
+
 
 @mock_aws
 def test_write_secret():
@@ -18,10 +17,14 @@ def test_write_secret():
     test_password = "IAmtheKingOfTheWorld2001"
 
     write_result = write_secret(
-    test_identifier, test_user_id, test_password, secretsmanager_client=secretsmanager
-)
+        test_identifier,
+        test_user_id,
+        test_password,
+        secretsmanager_client=secretsmanager,
+    )
     assert write_result["Name"] == "SteveBigSsecretVer01"
     assert write_result["ResponseMetadata"]["HTTPStatusCode"] == 200
+
 
 @mock_aws
 def test_list_secrets():
@@ -53,6 +56,7 @@ def test_list_secrets():
     assert len(result) == 2
     assert result == ["SteveBigSsecretVer02", "SteveBigSsecretVer03"]
 
+
 @mock_aws
 def test_retrieve_secret():
     secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
@@ -62,8 +66,11 @@ def test_retrieve_secret():
     test_password = "IAmtheKingOfTheWorld2004"
 
     write_secret(
-    test_identifier, test_user_id, test_password, secretsmanager_client=secretsmanager
-)
+        test_identifier,
+        test_user_id,
+        test_password,
+        secretsmanager_client=secretsmanager,
+    )
 
     result = retrieve_secret(
         test_identifier, secretsmanager_client=secretsmanager
@@ -75,10 +82,11 @@ def test_retrieve_secret():
     )
     with open("secrets.txt", "r", encoding="UTF-8") as file:
         assert file
-        assert (
-            file.read()
-            == """{"username": "Steve2004", "password": "IAmtheKingOfTheWorld2004"}"""
+        assert file.read() == (
+            '{"username": "Steve2004", '
+            '"password": "IAmtheKingOfTheWorld2004"}'
         )
+
 
 @mock_aws
 def test_delete_password():
@@ -115,7 +123,6 @@ def test_delete_password():
         secretsmanager_client=secretsmanager,
     )
 
-
     assert write_result["Name"] == "SteveBigSsecretVer07"
     assert write_result["ResponseMetadata"]["HTTPStatusCode"] == 200
 
@@ -125,7 +132,7 @@ def test_delete_password():
     assert result_all == [
         "SteveBigSsecretVer05",
         "SteveBigSsecretVer06",
-        "SteveBigSsecretVer07"
+        "SteveBigSsecretVer07",
     ]
 
     delete_secret(test_identifier_03, secretsmanager_client=secretsmanager)
@@ -133,7 +140,4 @@ def test_delete_password():
     result_deletion = list_secrets(secretsmanager_client=secretsmanager)
 
     assert len(result_deletion) == 2
-    assert result_deletion == [
-        "SteveBigSsecretVer05",
-        "SteveBigSsecretVer06"
-    ]
+    assert result_deletion == ["SteveBigSsecretVer05", "SteveBigSsecretVer06"]

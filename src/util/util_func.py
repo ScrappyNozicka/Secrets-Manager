@@ -37,7 +37,9 @@ def list_secrets(secretsmanager_client=client):
 
 
 def retrieve_secret(secret_identifier, secretsmanager_client=client):
-    response = secretsmanager_client.get_secret_value(SecretId=secret_identifier)
+    response = secretsmanager_client.get_secret_value(
+        SecretId=secret_identifier
+    )
     with open("secrets.txt", "w", encoding="UTF-8") as file:
         file.write(str(response["SecretString"]))
     return response
