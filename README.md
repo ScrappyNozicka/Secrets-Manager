@@ -31,4 +31,11 @@ test password_manager
 
 other considerations
 - error handling
-- 
+
+
+  to implement:
+  error handling
+  empty inoput mhandling
+  doc strings
+  update secrets - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager/client/update_secret.html
+  randomasier - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager/client/get_random_password.html
