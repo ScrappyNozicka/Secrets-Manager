@@ -3,14 +3,19 @@ from src.util.util_func import (
     list_secrets,
     retrieve_secret,
     delete_secret,
+    update_secret
 )
 import re
 
 def password_manager():
+    # response = str(input('Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate or e[x]it:'))
+    # while response.lower() not in "erdlxu":
+    #     response = str(input("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate  or e[x]it:"))
+    
     response = str(input('Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:'))
     while response.lower() not in "erdlx":
         response = str(input("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:"))
-
+    
     if response.lower() == "x":
         print("Thank you. Goodbye.")
         return
@@ -49,6 +54,16 @@ def password_manager():
             print("Secret not found, please try again.")
         password_manager()
 
+    # if response.lower() == "u":
+    #     secret_identifier = str(input("Secret Id:"))
+    #     user_id = str(input("New UserID:"))
+    #     password = str(input("New Password:"))
+    #     if re.match(r'^[a-zA-Z0-9\-/_+=\.@!]*$', secret_identifier):
+    #         update_secret(secret_identifier, user_id, password)
+    #         print("Secret updated.")
+    #     else:
+    #         print("Invalid name. Must be a valid name containing alphanumeric characters, or any of the following: -/_+=.@!")
+    #     password_manager()
 
 if __name__ == "__main__":
     password_manager()

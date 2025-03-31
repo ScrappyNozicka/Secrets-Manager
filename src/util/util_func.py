@@ -49,3 +49,13 @@ def delete_secret(secret_identifier, secretsmanager_client=client):
     secretsmanager_client.delete_secret(
         SecretId=secret_identifier, ForceDeleteWithoutRecovery=True
     )
+
+
+def update_secret(
+    secret_identifier, user_id, password, secretsmanager_client=client
+):
+    secret_string = json.dumps({"username": user_id, "password": password})
+    response = secretsmanager_client.update_secret(
+        SecretId=secret_identifier, SecretString=secret_string
+    )
+    return response

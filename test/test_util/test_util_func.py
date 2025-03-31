@@ -3,6 +3,7 @@ from src.util.util_func import (
     list_secrets,
     retrieve_secret,
     delete_secret,
+    update_secret,
 )
 import boto3
 from moto import mock_aws
@@ -141,3 +142,50 @@ def test_delete_password():
 
     assert len(result_deletion) == 2
     assert result_deletion == ["SteveBigSsecretVer05", "SteveBigSsecretVer06"]
+
+
+@mock_aws
+def test_update_secret():
+    secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
+
+    test_identifier = "SteveBigSsecretVer08"
+    test_user_id_01 = "Steve2008"
+    test_password_01 = "IAmtheKingOfTheWorld2008"
+    test_user_id_02 = "Steve2009"
+    test_password_02 = "IAmtheKingOfTheWorld2009"
+
+    write_result = write_secret(
+        test_identifier,
+        test_user_id_01,
+        test_password_01,
+        secretsmanager_client=secretsmanager,
+    )
+    assert write_result["Name"] == "SteveBigSsecretVer08"
+    assert write_result["ResponseMetadata"]["HTTPStatusCode"] == 200
+
+    result_01 = retrieve_secret(
+        test_identifier, secretsmanager_client=secretsmanager
+    )
+
+    assert (
+        result_01["SecretString"]
+        == '{"username": "Steve2008", "password": "IAmtheKingOfTheWorld2008"}'
+    )
+
+    update_result = update_secret(
+        test_identifier,
+        test_user_id_02,
+        test_password_02,
+        secretsmanager_client=secretsmanager,
+    )
+    assert update_result["Name"] == "SteveBigSsecretVer08"
+    assert update_result["ResponseMetadata"]["HTTPStatusCode"] == 200
+
+    result_02 = retrieve_secret(
+        test_identifier, secretsmanager_client=secretsmanager
+    )
+
+    assert (
+        result_02["SecretString"]
+        == '{"username": "Steve2009", "password": "IAmtheKingOfTheWorld2009"}'
+    )
