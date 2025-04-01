@@ -4,9 +4,11 @@ from src.util.util_func import (
     retrieve_secret,
     delete_secret,
     update_secret,
+    randomise_secret,
 )
 import boto3
 from moto import mock_aws
+import string
 
 
 @mock_aws
@@ -189,3 +191,23 @@ def test_update_secret():
         result_02["SecretString"]
         == '{"username": "Steve2009", "password": "IAmtheKingOfTheWorld2009"}'
     )
+
+
+@mock_aws
+def test_randomise_secret():
+    secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
+
+    excluded_characters = r"#%&'()\"~,:;<>?[^`{|}"
+    included_characters = (
+        string.ascii_letters + string.digits + r"-/_+=\.@!]*$"
+    )
+
+    randomise_result = randomise_secret(secretsmanager_client=secretsmanager)
+
+    assert randomise_result["RandomPassword"] is not None
+    assert randomise_result["ResponseMetadata"]["HTTPStatusCode"] == 200
+    assert len(randomise_result["RandomPassword"]) == 20
+    for char in randomise_result["RandomPassword"]:
+        assert char not in excluded_characters
+        assert char in included_characters
+        assert char != " "

@@ -59,3 +59,12 @@ def update_secret(
         SecretId=secret_identifier, SecretString=secret_string
     )
     return response
+
+
+def randomise_secret(secretsmanager_client=client):
+    response = secretsmanager_client.get_random_password(
+        PasswordLength=20,
+        ExcludeCharacters=r"#$%&'()*\"~,:;<>?[\]^`{|}",
+        IncludeSpace=False,
+    )
+    return response
