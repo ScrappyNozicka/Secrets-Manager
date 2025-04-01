@@ -197,10 +197,8 @@ def test_update_secret():
 def test_randomise_secret():
     secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
-    excluded_characters = r"#%&'()\"~,:;<>?[^`{|}"
-    included_characters = (
-        string.ascii_letters + string.digits + r"-/_+=\.@!]*$"
-    )
+    excluded_characters = r"\"#$%&'()*,:;<>?[\]^`{|}"
+    included_characters = string.ascii_letters + string.digits + r"-/_+=.@!"
 
     randomise_result = randomise_secret(secretsmanager_client=secretsmanager)
 
