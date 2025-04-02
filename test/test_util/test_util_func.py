@@ -5,10 +5,12 @@ from src.util.util_func import (
     delete_secret,
     update_secret,
     randomise_secret,
+    get_non_empty_input,
 )
 import boto3
 from moto import mock_aws
 import string
+from unittest.mock import patch
 
 
 @mock_aws
@@ -209,3 +211,17 @@ def test_randomise_secret():
         assert char not in excluded_characters
         assert char in included_characters
         assert char != " "
+
+
+def test_get_non_empty_input():
+    with patch("builtins.input", return_value="testing"):
+        assert get_non_empty_input("") is not None
+        assert get_non_empty_input("") == "testing"
+
+
+def test_get_empty_input_and_non_empty_input(capsys):
+    with patch("builtins.input", side_effect=["", "testing"]):
+        result = get_non_empty_input("")
+        assert result == "testing"
+        captured = capsys.readouterr()
+        assert "Input cannot be empty, please try again." in captured.out

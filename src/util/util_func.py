@@ -68,3 +68,12 @@ def randomise_secret(secretsmanager_client=client):
         IncludeSpace=False,
     )
     return response
+
+
+def get_non_empty_input(prompt):
+    while True:
+        user_input = input(prompt)
+        if not user_input:
+            print("Input cannot be empty, please try again.")
+            continue
+        return user_input

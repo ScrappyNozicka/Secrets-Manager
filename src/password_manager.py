@@ -4,17 +4,10 @@ from src.util.util_func import (
     retrieve_secret,
     delete_secret,
     update_secret,
-    randomise_secret
+    randomise_secret,
+    get_non_empty_input
 )
 import re
-
-def get_non_empty_input(prompt):
-    while True:
-        user_input = input(prompt)
-        if not user_input:
-            print("Input cannot be empty, please try again.")
-            continue
-        return user_input
 
 def password_manager():
     response = get_non_empty_input("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:")
