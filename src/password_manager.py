@@ -8,20 +8,28 @@ from src.util.util_func import (
 )
 import re
 
+def get_non_empty_input(prompt):
+    while True:
+        user_input = input(prompt)
+        if not user_input:
+            print("Input cannot be empty, please try again.")
+            continue
+        return user_input
+
 def password_manager():
-    response = str(input("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"))
+    response = get_non_empty_input("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:")
     while response.lower() not in "erdlxua":
-        response = str(input("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"))
+        response = get_non_empty_input("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:")
     
     if response.lower() == "x":
         print("Thank you. Goodbye.")
         return
 
     if response.lower() == "e":
-        secret_identifier = str(input("Secret Identifier:"))
+        secret_identifier = get_non_empty_input("Secret Identifier:")
         if re.match(r'^[a-zA-Z0-9\-/_+=\.@!]*$', secret_identifier):
-            user_id = str(input("UserID:"))
-            password = str(input("Password:"))
+            user_id = get_non_empty_input("UserID:")
+            password = get_non_empty_input("Password:")
             write_secret(secret_identifier, user_id, password)
             print("Secret saved.")
         else:
@@ -34,7 +42,7 @@ def password_manager():
         password_manager()
 
     if response.lower() == "r":
-        response = str(input("Specify secret to retrieve:"))
+        response = get_non_empty_input("Specify secret to retrieve:")
         try:
             retrieve_secret(response)
             print("Secrets stored in local file secrets.txt")
@@ -43,7 +51,7 @@ def password_manager():
         password_manager()
 
     if response.lower() == "d":
-        response = str(input("Specify secret to delete:"))
+        response = get_non_empty_input("Specify secret to delete:")
         if response in list_secrets():
             delete_secret(response)
             print("Deleted.")
@@ -52,10 +60,10 @@ def password_manager():
         password_manager()
 
     if response.lower() == "u":
-        secret_identifier = str(input("Secret Identifier:"))
+        secret_identifier = get_non_empty_input("Secret Identifier:")
         if secret_identifier in list_secrets():
-            user_id = str(input("New UserID:"))
-            password = str(input("New Password:"))
+            user_id = get_non_empty_input("New UserID:")
+            password = get_non_empty_input("New Password:")
             update_secret(secret_identifier, user_id, password)
             print("Secret updated.")
         else:
@@ -63,9 +71,9 @@ def password_manager():
         password_manager()
 
     if response.lower() == "a":
-        secret_identifier = str(input("Secret Identifier:"))
+        secret_identifier = get_non_empty_input("Secret Identifier:")
         if re.match(r'^[a-zA-Z0-9\-/_+=\.@!]*$', secret_identifier):
-            user_id = str(input("UserID:"))
+            user_id = get_non_empty_input("UserID:")
             password = randomise_secret()
             print("Random password generated:{password}")
             write_secret(secret_identifier, user_id, password)
