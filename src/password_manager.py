@@ -9,13 +9,9 @@ from src.util.util_func import (
 import re
 
 def password_manager():
-    # response = str(input('Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:'))
-    # while response.lower() not in "erdlxua":
-    #     response = str(input("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"))
-    
-    response = str(input('Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:'))
-    while response.lower() not in "erdlx":
-        response = str(input("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it:"))
+    response = str(input("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"))
+    while response.lower() not in "erdlxua":
+        response = str(input("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"))
     
     if response.lower() == "x":
         print("Thank you. Goodbye.")
@@ -55,27 +51,28 @@ def password_manager():
             print("Secret not found, please try again.")
         password_manager()
 
-    # if response.lower() == "u":
-    #     secret_identifier = str(input("Secret Id:"))
-    #     user_id = str(input("New UserID:"))
-    #     password = str(input("New Password:"))
-    #     if re.match(r'^[a-zA-Z0-9\-/_+=\.@!]*$', secret_identifier):
-    #         update_secret(secret_identifier, user_id, password)
-    #         print("Secret updated.")
-    #     else:
-    #         print("Invalid name. Must be a valid name containing alphanumeric characters, or any of the following: -/_+=.@!")
-    #     password_manager()
+    if response.lower() == "u":
+        secret_identifier = str(input("Secret Id:"))
+        user_id = str(input("New UserID:"))
+        password = str(input("New Password:"))
+        if secret_identifier in list_secrets():
+            update_secret(secret_identifier, user_id, password)
+            print("Secret updated.")
+        else:
+            print("Secret not found, please try again.")
+        password_manager()
 
-    # if response.lower() == "a":
-    #     secret_identifier = str(input("Secret Id:"))
-    #     user_id = str(input("New UserID:"))
-    #     password = randomise_secret()
-    #     if re.match(r'^[a-zA-Z0-9\-/_+=\.@!]*$', secret_identifier):
-    #         write_secret(secret_identifier, user_id, password)
-    #         print("Random password generated and secret saved.")
-    #     else:
-    #         print("Invalid name. Must be a valid name containing alphanumeric characters, or any of the following: -/_+=.@!")
-    #     password_manager()
+    if response.lower() == "a":
+        secret_identifier = str(input("Secret Id:"))
+        user_id = str(input("New UserID:"))
+        password = randomise_secret()
+        print("Random password generated:{password}")
+        if re.match(r'^[a-zA-Z0-9\-/_+=\.@!]*$', secret_identifier):
+            write_secret(secret_identifier, user_id, password)
+            print("Secret saved.")
+        else:
+            print("Invalid name. Must be a valid name containing alphanumeric characters, or any of the following: -/_+=.@!")
+        password_manager()
 
 if __name__ == "__main__":
     password_manager()
