@@ -18,12 +18,8 @@ def test_password_manager_entry_valid_chars(mock_input, mock_print, mock_write_s
     mock_print.assert_any_call("Secret saved.")
     mock_print.assert_any_call("Thank you. Goodbye.")
 
-
-
-
-
 @mock_aws
-@patch("builtins.input", side_effect=["e", "<~~~~~~>", "user_1", "password123", "x"])
+@patch("builtins.input", side_effect=["e", "<~~~~~~>", "x"])
 @patch("builtins.print")
 @patch("src.util.util_func.write_secret")
 def test_password_manager_entry_invalid_chars(mock_input, mock_print, mock_write_secret):
@@ -32,8 +28,6 @@ def test_password_manager_entry_invalid_chars(mock_input, mock_print, mock_write
 
     mock_write_secret.assert_any_call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:")
     mock_write_secret.assert_any_call("Secret Identifier:")
-    mock_write_secret.assert_any_call("UserID:")
-    mock_write_secret.assert_any_call("Password:")
 
     mock_print.assert_any_call("Invalid name. Must be a valid name containing alphanumeric characters, or any of the following: -/_+=.@!")
     mock_print.assert_any_call("Thank you. Goodbye.")
@@ -218,8 +212,88 @@ def test_password_manager_valid_input_and_invalid_input_after(mock_input, mock_p
     mock_print.assert_any_call("Secret saved.")
     mock_print.assert_any_call("Thank you. Goodbye.")
 
+
+@mock_aws
+@patch("builtins.input", side_effect=["e", "test-secret_123", "user_1", "password123", "u", "test-secret_123", "user_2", "password456", "x"])
+@patch("builtins.print")
+@patch("src.util.util_func.update_secret")
+def test_password_manager_update_secret_valid_input(mock_input, mock_print, mock_update_secret):
+
+    password_manager()
+
+    mock_update_secret.assert_has_calls(
+        [
+        call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"),
+        call("Secret Identifier:"),
+        call("UserID:"),
+        call("Password:"),
+        call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"),
+        call("Secret Identifier:"),
+        call("New UserID:"),
+        call("New Password:"),
+        call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:")
+        ]
+        )
+
+    mock_print.assert_any_call("Secret saved.")
+    mock_print.assert_any_call("Thank you. Goodbye.")
+
+@mock_aws
+@patch("builtins.input", side_effect=["u", "test-secret_123", "user_2", "password456", "x"])
+@patch("builtins.print")
+@patch("src.util.util_func.update_secret")
+def test_password_manager_update_secret_invalid_input(mock_input, mock_print, mock_update_secret):
+
+    password_manager()
+
+    mock_update_secret.assert_has_calls(
+        [
+        call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"),
+        call("Secret Identifier:")
+        ]
+        )
+
+    mock_print.assert_any_call("Secret not found, please try again.")
+    mock_print.assert_any_call("Thank you. Goodbye.")
+
+
+@mock_aws
+@patch("builtins.input", side_effect=["a", "test-secret_123", "user_1", "x"])
+@patch("builtins.print")
+@patch("src.util.util_func.randomise_secret")
+def test_password_manager_randomise_password_valid_input(mock_input, mock_print, mock_randomise_secret):
+
+    password_manager()
+
+    mock_randomise_secret.assert_has_calls(
+        [
+        call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"),
+        call("Secret Identifier:"),
+        call("UserID:"),
+        call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:")
+        ]
+        )
+
+    mock_print.assert_any_call("Random password generated:{password}")    
+    mock_print.assert_any_call("Secret saved.")
+    mock_print.assert_any_call("Thank you. Goodbye.")
+
+@mock_aws
+@patch("builtins.input", side_effect=["a", "<~~~~~~~~>", "x"])
+@patch("builtins.print")
+@patch("src.util.util_func.randomise_secret")
+def test_password_manager_randomise_password_invalid_input(mock_input, mock_print, mock_randomise_secret):
+
+    password_manager()
+
+    mock_randomise_secret.assert_has_calls(
+        [
+        call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"),
+        call("Secret Identifier:")
+        ]
+        )
+
+    mock_print.assert_any_call("Invalid name. Must be a valid name containing alphanumeric characters, or any of the following: -/_+=.@!")
+    mock_print.assert_any_call("Thank you. Goodbye.")   
+
 # def test_password_manager_entry_none_chars(mock_input, mock_print, mock_write_secret):
-# def test_password_manager_update_secret_valid_input(mock_input, mock_print, mock_write_secret):
-# def test_password_manager_update_secret_invalid_input(mock_input, mock_print, mock_write_secret):
-# def test_password_manager_randomise_password_valid_input(mock_input, mock_print, mock_write_secret):
-# def test_password_manager_randomise_password_invalid_input(mock_input, mock_print, mock_write_secret):

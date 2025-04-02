@@ -19,9 +19,9 @@ def password_manager():
 
     if response.lower() == "e":
         secret_identifier = str(input("Secret Identifier:"))
-        user_id = str(input("UserID:"))
-        password = str(input("Password:"))
         if re.match(r'^[a-zA-Z0-9\-/_+=\.@!]*$', secret_identifier):
+            user_id = str(input("UserID:"))
+            password = str(input("Password:"))
             write_secret(secret_identifier, user_id, password)
             print("Secret saved.")
         else:
@@ -52,10 +52,10 @@ def password_manager():
         password_manager()
 
     if response.lower() == "u":
-        secret_identifier = str(input("Secret Id:"))
-        user_id = str(input("New UserID:"))
-        password = str(input("New Password:"))
+        secret_identifier = str(input("Secret Identifier:"))
         if secret_identifier in list_secrets():
+            user_id = str(input("New UserID:"))
+            password = str(input("New Password:"))
             update_secret(secret_identifier, user_id, password)
             print("Secret updated.")
         else:
@@ -63,11 +63,11 @@ def password_manager():
         password_manager()
 
     if response.lower() == "a":
-        secret_identifier = str(input("Secret Id:"))
-        user_id = str(input("New UserID:"))
-        password = randomise_secret()
-        print("Random password generated:{password}")
+        secret_identifier = str(input("Secret Identifier:"))
         if re.match(r'^[a-zA-Z0-9\-/_+=\.@!]*$', secret_identifier):
+            user_id = str(input("UserID:"))
+            password = randomise_secret()
+            print("Random password generated:{password}")
             write_secret(secret_identifier, user_id, password)
             print("Secret saved.")
         else:
