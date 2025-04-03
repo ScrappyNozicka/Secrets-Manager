@@ -4,7 +4,7 @@
 #
 #################################################################################
 
-PROJECT_NAME = Project-01
+PROJECT_NAME = Secrets-Manager
 REGION = eu-west-2
 PYTHON_INTERPRETER = python
 WD=$(shell pwd)
