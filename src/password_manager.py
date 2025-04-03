@@ -10,6 +10,15 @@ from src.util.util_func import (
 import re
 
 def password_manager():
+       
+    """
+   Main script for Secrets Manager.
+   Runs the terminal script using input from user.
+  
+   Requirements(.env):
+       - AWS credentials
+   """
+       
     response = get_non_empty_input("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:")
     while response.lower() not in "erdlxua":
         response = get_non_empty_input("Invalid input. Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:")
