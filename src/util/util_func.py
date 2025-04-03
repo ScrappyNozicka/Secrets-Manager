@@ -53,7 +53,7 @@ def list_secrets(secretsmanager_client=client):
 
 def retrieve_secret(secret_identifier, secretsmanager_client=client):
     """
-    Handler of location and extraction of secret from Password Manager into local environment.
+    Handler of location and extraction of secret from Password Manager locally.
 
     Args:
         secret_identifier: Pre-existing user-defined secret identifier.
