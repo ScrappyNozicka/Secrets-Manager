@@ -2,6 +2,7 @@ from unittest.mock import patch, call
 from moto import mock_aws
 from src.password_manager import password_manager
 
+
 @mock_aws
 @patch("builtins.input", side_effect=["e", "test-secret_123", "user_1", "password123", "x"])
 @patch("builtins.print")
@@ -22,6 +23,7 @@ def test_password_manager_entry_valid_chars(mock_input, mock_print, mock_write_s
     mock_print.assert_any_call("Secret saved.")
     mock_print.assert_any_call("Thank you. Goodbye.")
 
+
 @mock_aws
 @patch("builtins.input", side_effect=["e", "<~~~~~~>", "x"])
 @patch("builtins.print")
@@ -40,6 +42,7 @@ def test_password_manager_entry_invalid_chars(mock_input, mock_print, mock_write
     mock_print.assert_any_call("Invalid name. Must be a valid name containing alphanumeric characters, or any of the following: -/_+=.@!")
     mock_print.assert_any_call("Thank you. Goodbye.")
 
+
 @mock_aws
 @patch("builtins.input", side_effect=["e", "test-secret_123", "user_1", "password123", "r", "test-secret_123", "x"])
 @patch("builtins.print")
@@ -57,6 +60,7 @@ def test_password_manager_retrieval_valid_input(mock_input, mock_print, mock_ret
     mock_print.assert_any_call("Secrets stored in local file secrets.txt")
     mock_print.assert_any_call("Thank you. Goodbye.")
 
+
 @mock_aws
 @patch("builtins.input", side_effect=["r", "test-secret_123", "x"])
 @patch("builtins.print")
@@ -73,9 +77,6 @@ def test_password_manager_retrieval_invalid_input(mock_input, mock_print, mock_r
 
     mock_print.assert_any_call("That is not a valid secret.")
     mock_print.assert_any_call("Thank you. Goodbye.")
-
-
-
 
 
 @mock_aws
@@ -162,7 +163,6 @@ def test_password_manager_listing_multiple_secrets(mock_input, mock_print, mock_
     mock_print.assert_any_call("Thank you. Goodbye.")
 
 
-
 @mock_aws
 @patch("builtins.input", side_effect=["x"])
 @patch("builtins.print")
@@ -175,7 +175,6 @@ def test_password_manager_exit(mock_input, mock_print, mock_write_secret):
     password_manager()
 
     mock_print.assert_any_call("Thank you. Goodbye.")
-
 
 
 @mock_aws
@@ -216,6 +215,7 @@ def test_password_manager_invalid_multi_input(mock_input, mock_print, mock_write
 
     mock_print.assert_any_call("Thank you. Goodbye.")
 
+
 @mock_aws
 @patch("builtins.input", side_effect=["t", "e", "test-secret_123", "user_1", "password123",  "x"])
 @patch("builtins.print")
@@ -240,6 +240,7 @@ def test_password_manager_invalid_input_and_valid_input_after(mock_input, mock_p
     
     mock_print.assert_any_call("Secret saved.")
     mock_print.assert_any_call("Thank you. Goodbye.")
+
 
 @mock_aws
 @patch("builtins.input", side_effect=["e", "test-secret_123", "user_1", "password123", "t", "x"])
@@ -297,6 +298,7 @@ def test_password_manager_update_secret_valid_input(mock_input, mock_print, mock
     mock_print.assert_any_call("Secret saved.")
     mock_print.assert_any_call("Thank you. Goodbye.")
 
+
 @mock_aws
 @patch("builtins.input", side_effect=["u", "test-secret_123", "user_2", "password456", "x"])
 @patch("builtins.print")
@@ -344,6 +346,7 @@ def test_password_manager_randomise_password_valid_input(mock_input, mock_print,
     mock_print.assert_any_call("Random password generated:{password}")    
     mock_print.assert_any_call("Secret saved.")
     mock_print.assert_any_call("Thank you. Goodbye.")
+
 
 @mock_aws
 @patch("builtins.input", side_effect=["a", "<~~~~~~~~>", "x"])
@@ -396,6 +399,7 @@ def test_password_manager_entry_multi_none_chars(mock_input, mock_print, mock_wr
         ]
         )
     
+
 @mock_aws
 @patch("builtins.input", side_effect=["", "e", "", "test-secret_123", "", "user_1", "", "password123", "x"])
 @patch("builtins.print")

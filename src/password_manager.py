@@ -9,10 +9,9 @@ from src.util.util_func import (
 )
 import re
 
-def password_manager():
-       
+def password_manager():    
     """
-   Main script for Secrets Manager.
+   Main script for Password Manager.
    Runs the terminal script using input from user.
   
    Requirements(.env):

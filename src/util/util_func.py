@@ -25,6 +25,7 @@ def write_secret(
         password: User-defined password.
         secretsmanager_client: Connection to AWS's Secret Manager.
     """
+
     secret_string = json.dumps({"username": user_id, "password": password})
     response = secretsmanager_client.create_secret(
         Name=secret_identifier, SecretString=secret_string
@@ -39,6 +40,7 @@ def list_secrets(secretsmanager_client=client):
     Args:
         secretsmanager_client: Connection to AWS's Secret Manager.
     """
+
     response = secretsmanager_client.list_secrets(SortOrder="asc")
     secret_names_list = []
     for secret in response["SecretList"]:
@@ -59,6 +61,7 @@ def retrieve_secret(secret_identifier, secretsmanager_client=client):
         secret_identifier: Pre-existing user-defined secret identifier.
         secretsmanager_client: Connection to AWS's Secret Manager.
     """
+
     response = secretsmanager_client.get_secret_value(
         SecretId=secret_identifier
     )
@@ -75,6 +78,7 @@ def delete_secret(secret_identifier, secretsmanager_client=client):
         secret_identifier: Pre-existing user-defined secret identifier.
         secretsmanager_client: Connection to AWS's Secret Manager.
     """
+
     secretsmanager_client.delete_secret(
         SecretId=secret_identifier, ForceDeleteWithoutRecovery=True
     )
@@ -92,6 +96,7 @@ def update_secret(
         password: New user-defined password.
         secretsmanager_client: Connection to AWS's Secret Manager.
     """
+
     secret_string = json.dumps({"username": user_id, "password": password})
     response = secretsmanager_client.update_secret(
         SecretId=secret_identifier, SecretString=secret_string
@@ -106,6 +111,7 @@ def randomise_secret(secretsmanager_client=client):
     Args:
         secretsmanager_client: Connection to AWS's Secret Manager.
     """
+
     response = secretsmanager_client.get_random_password(
         PasswordLength=20,
         ExcludeCharacters=r"\"#$%&'()*,:;<>?[\]^`{|}~",
@@ -121,6 +127,7 @@ def get_non_empty_input(prompt):
     Args:
         promt: User input.
     """
+
     while True:
         user_input = input(prompt)
         if not user_input:
