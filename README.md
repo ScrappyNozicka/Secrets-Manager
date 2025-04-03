@@ -1,41 +1,46 @@
-# project_01
+# Secrets Manager
 
-Password Manager
-----------------
-
-prerequisites
-- AIM user and role
-- .env file
-- .gitignore
-
-src/password_manager.py
-- Hold the script, writing to the console, prompting for user input
-- [e]ntry, [r]etrieval, [d]eletion, [l]isting or e[x]it
-
-infrastructure deployment
-- boto3 > aws Secrets Manager
-- create roles and permissions
-- secretsmanager:PutSecretValue permission
-
-src/util/util_funcs
-- list passwords
-- retrieve passwords
-- write new password_manager
-- delete password
-
-test utility functions
-- test each util function
-
-test password_manager 
-- test for overall functionality
-
-other considerations
-- error handling
+## Description
+Terminal based password manager utilising python script and AWS Secrets manager to create, update, delete, list, download and create random passwords.
 
 
-  to implement:
-  error handling
-  empty inoput mhandling
-  doc strings
-  update secrets - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager/client/update_secret.html
-  randomasier - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager/client/get_random_password.html
+## Technologies used
+- **Python:** Version 3.12
+- **AWS:** Secrets Manager
+- **Data Formats:** TXT for exporting password information from AWS locally
+- **Automation Tools:**  CI/CD for deployment
+
+## Installation
+
+### Prerequisites
+- [Python](https://www.python.org/downloads/) - version 3.12 or above
+- [Make](https://www.gnu.org/software/make/)
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
+
+### AWS requirements
+- required secret keys:
+    - AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Miigget/totesys-final-project.git
+   cd totesys-final-project
+2. Install dependencies:
+    - `create-environment`(automated by `requirements`): Creates a Python virtual environment.
+        ```bash
+        make create-environment
+    - `requirements`: Installs the project dependencies from requirements.txt.
+        ```bash
+        make requirements
+    - `dev-setup`: Installs development tools(bandit, black, flake8, pytest-cov, and pip-audit)
+        ```bash
+        make dev-setup
+    - `run-checks`: Runs security tests, code checks, unit tests, coverage analysis
+        ```bash
+        make run-checks
+3. Set up AWS credentials:
+    ```bash
+    aws configure
