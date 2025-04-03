@@ -15,6 +15,7 @@ from unittest.mock import patch
 
 @mock_aws
 def test_write_secret():
+    """Test the write_secret function returns expected result."""
     secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
     test_identifier = "SteveBigSsecretVer01"
@@ -33,6 +34,7 @@ def test_write_secret():
 
 @mock_aws
 def test_list_secrets():
+    """Test the list_secrets function returns expected list of secrets."""
     secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
     test_identifier_01 = "SteveBigSsecretVer02"
@@ -64,6 +66,7 @@ def test_list_secrets():
 
 @mock_aws
 def test_retrieve_secret():
+    """Test the retrieve_secret function returns expected file."""
     secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
     test_identifier = "SteveBigSsecretVer04"
@@ -94,7 +97,8 @@ def test_retrieve_secret():
 
 
 @mock_aws
-def test_delete_password():
+def test_delete_secret():
+    """Test the delete_secret function deletes expected file."""
     secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
     test_identifier_01 = "SteveBigSsecretVer05"
@@ -150,6 +154,7 @@ def test_delete_password():
 
 @mock_aws
 def test_update_secret():
+    """Test the update_secret function update secret with expected values."""
     secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
     test_identifier = "SteveBigSsecretVer08"
@@ -197,6 +202,7 @@ def test_update_secret():
 
 @mock_aws
 def test_randomise_secret():
+    """Test the randomise_secret function create randomised password."""
     secretsmanager = boto3.client("secretsmanager", region_name="eu-west-2")
 
     excluded_characters = r"\"#$%&'()*,:;<>?[\]^`{|}~"
@@ -214,12 +220,14 @@ def test_randomise_secret():
 
 
 def test_get_non_empty_input():
+    """Test the get_non_empty_input function handles input as expected."""
     with patch("builtins.input", return_value="testing"):
         assert get_non_empty_input("") is not None
         assert get_non_empty_input("") == "testing"
 
 
 def test_get_empty_input_and_non_empty_input(capsys):
+    """Test the get_non_empty_input function handles no input as expected."""
     with patch("builtins.input", side_effect=["", "testing"]):
         result = get_non_empty_input("")
         assert result == "testing"

@@ -7,6 +7,10 @@ from src.password_manager import password_manager
 @patch("builtins.print")
 @patch("src.util.util_func.write_secret")
 def test_password_manager_entry_valid_chars(mock_input, mock_print, mock_write_secret):
+    """
+    Test the password_manager script handles entry functionality 
+    with valid characters as expected.
+    """
 
     password_manager()
 
@@ -23,6 +27,10 @@ def test_password_manager_entry_valid_chars(mock_input, mock_print, mock_write_s
 @patch("builtins.print")
 @patch("src.util.util_func.write_secret")
 def test_password_manager_entry_invalid_chars(mock_input, mock_print, mock_write_secret):
+    """
+    Test the password_manager script handles entry functionality 
+    with invalid characters as expected.
+    """
     
     password_manager()
 
@@ -37,6 +45,10 @@ def test_password_manager_entry_invalid_chars(mock_input, mock_print, mock_write
 @patch("builtins.print")
 @patch("src.util.util_func.retrieve_secret")
 def test_password_manager_retrieval_valid_input(mock_input, mock_print, mock_retrieve_secret):
+    """
+    Test the password_manager script handles retrieve functionality 
+    with valid identifier as expected.
+    """
 
     password_manager()
 
@@ -50,6 +62,10 @@ def test_password_manager_retrieval_valid_input(mock_input, mock_print, mock_ret
 @patch("builtins.print")
 @patch("src.util.util_func.retrieve_secret")
 def test_password_manager_retrieval_invalid_input(mock_input, mock_print, mock_retrieve_secret):
+    """
+    Test the password_manager script handles retrieve functionality 
+    with invalid identifier as expected.
+    """
 
     password_manager()
 
@@ -67,6 +83,10 @@ def test_password_manager_retrieval_invalid_input(mock_input, mock_print, mock_r
 @patch("builtins.print")
 @patch("src.util.util_func.delete_secret")
 def test_password_manager_deletion_valid_input(mock_input, mock_print, mock_delete_secret):
+    """
+    Test the password_manager script handles delete functionality 
+    with valid identifier as expected.
+    """
 
     password_manager()
 
@@ -81,6 +101,10 @@ def test_password_manager_deletion_valid_input(mock_input, mock_print, mock_dele
 @patch("builtins.print")
 @patch("src.util.util_func.delete_secret")
 def test_password_manager_deletion_invalid_input(mock_input, mock_print, mock_delete_secret):
+    """
+    Test the password_manager script handles delete functionality 
+    with invalid identifier as expected.
+    """
 
     password_manager()
 
@@ -95,6 +119,10 @@ def test_password_manager_deletion_invalid_input(mock_input, mock_print, mock_de
 @patch("builtins.print")
 @patch("src.util.util_func.list_secrets")
 def test_password_manager_listing_none_secret(mock_input, mock_print, mock_list_secrets):
+    """
+    Test the password_manager script handles list functionality 
+    with no secrets stored as expected.
+    """
 
     password_manager()
 
@@ -107,6 +135,10 @@ def test_password_manager_listing_none_secret(mock_input, mock_print, mock_list_
 @patch("builtins.print")
 @patch("src.util.util_func.list_secrets")
 def test_password_manager_listing_one_secret(mock_input, mock_print, mock_list_secrets):
+    """
+    Test the password_manager script handles list functionality 
+    with one secret stored as expected.
+    """
 
     password_manager()
 
@@ -119,6 +151,10 @@ def test_password_manager_listing_one_secret(mock_input, mock_print, mock_list_s
 @patch("builtins.print")
 @patch("src.util.util_func.list_secrets")
 def test_password_manager_listing_multiple_secrets(mock_input, mock_print, mock_list_secrets):
+    """
+    Test the password_manager script handles list functionality 
+    with multiple secrets stored as expected.
+    """
 
     password_manager()
 
@@ -132,6 +168,9 @@ def test_password_manager_listing_multiple_secrets(mock_input, mock_print, mock_
 @patch("builtins.print")
 @patch("src.util.util_func.write_secret")
 def test_password_manager_exit(mock_input, mock_print, mock_write_secret):
+    """
+    Test the password_manager script handles exit functionality as expected.
+    """
 
     password_manager()
 
@@ -144,6 +183,10 @@ def test_password_manager_exit(mock_input, mock_print, mock_write_secret):
 @patch("builtins.print")
 @patch("src.util.util_func.write_secret")
 def test_password_manager_invalid_one_input(mock_input, mock_print, mock_write_secret):
+    """
+    Test the password_manager script handles scripting functionality 
+    with one invalid input as expected.
+    """
 
     password_manager()
 
@@ -155,6 +198,10 @@ def test_password_manager_invalid_one_input(mock_input, mock_print, mock_write_s
 @patch("builtins.print")
 @patch("src.util.util_func.write_secret")
 def test_password_manager_invalid_multi_input(mock_input, mock_print, mock_write_secret):
+    """
+    Test the password_manager script handles scripting functionality 
+    with multiple invalid input as expected.
+    """
 
     password_manager()
 
@@ -174,6 +221,10 @@ def test_password_manager_invalid_multi_input(mock_input, mock_print, mock_write
 @patch("builtins.print")
 @patch("src.util.util_func.write_secret")
 def test_password_manager_invalid_input_and_valid_input_after(mock_input, mock_print, mock_write_secret):
+    """
+    Test the password_manager script handles scripting functionality 
+    with invalid input followed by valid input as expected.
+    """
 
     password_manager()
 
@@ -195,6 +246,10 @@ def test_password_manager_invalid_input_and_valid_input_after(mock_input, mock_p
 @patch("builtins.print")
 @patch("src.util.util_func.write_secret")
 def test_password_manager_valid_input_and_invalid_input_after(mock_input, mock_print, mock_write_secret):
+    """
+    Test the password_manager script handles scripting functionality 
+    with valid input followed by invalid input as expected.
+    """
 
     password_manager()
 
@@ -218,6 +273,10 @@ def test_password_manager_valid_input_and_invalid_input_after(mock_input, mock_p
 @patch("builtins.print")
 @patch("src.util.util_func.update_secret")
 def test_password_manager_update_secret_valid_input(mock_input, mock_print, mock_update_secret):
+    """
+    Test the password_manager script handles update functionality 
+    with valid identifier as expected.
+    """
 
     password_manager()
 
@@ -243,6 +302,10 @@ def test_password_manager_update_secret_valid_input(mock_input, mock_print, mock
 @patch("builtins.print")
 @patch("src.util.util_func.update_secret")
 def test_password_manager_update_secret_invalid_input(mock_input, mock_print, mock_update_secret):
+    """
+    Test the password_manager script handles update functionality 
+    with valid identifier as expected.
+    """
 
     password_manager()
 
@@ -262,6 +325,10 @@ def test_password_manager_update_secret_invalid_input(mock_input, mock_print, mo
 @patch("builtins.print")
 @patch("src.util.util_func.randomise_secret")
 def test_password_manager_randomise_password_valid_input(mock_input, mock_print, mock_randomise_secret):
+    """
+    Test the password_manager script handles randomise functionality 
+    with valid characters as expected.
+    """
 
     password_manager()
 
@@ -283,6 +350,10 @@ def test_password_manager_randomise_password_valid_input(mock_input, mock_print,
 @patch("builtins.print")
 @patch("src.util.util_func.randomise_secret")
 def test_password_manager_randomise_password_invalid_input(mock_input, mock_print, mock_randomise_secret):
+    """
+    Test the password_manager script handles randomise functionality 
+    with invalid characters as expected.
+    """
 
     password_manager()
 
@@ -302,6 +373,9 @@ def test_password_manager_randomise_password_invalid_input(mock_input, mock_prin
 @patch("builtins.print")
 @patch("src.util.util_func.write_secret")
 def test_password_manager_entry_multi_none_chars(mock_input, mock_print, mock_write_secret):
+    """
+    Test the password_manager script handles multiple empty input as expected.
+    """
 
     password_manager()
 
@@ -327,6 +401,9 @@ def test_password_manager_entry_multi_none_chars(mock_input, mock_print, mock_wr
 @patch("builtins.print")
 @patch("src.util.util_func.write_secret")
 def test_password_manager_entry_one_none_char(mock_input, mock_print, mock_write_secret):
+    """
+    Test the password_manager script handles randomised empty input as expected.
+    """
 
     password_manager()
 
