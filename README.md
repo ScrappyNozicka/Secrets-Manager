@@ -1,7 +1,7 @@
 # Secrets Manager
 
 ## Description
-Command Line based password manager utilising AWS Secrets Manager to create, update, delete, list, download and create random passwords.
+Password manager tool in Command Line utilising AWS Secrets Manager to create, update, delete, list, download and create random passwords.
 
 
 ## Technologies used
