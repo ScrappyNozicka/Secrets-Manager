@@ -26,7 +26,7 @@ Terminal based password manager utilising python script and AWS Secrets manager 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Miigget/totesys-final-project.git
+   git clone https://github.com/ScrappyNozicka/Secrets-Manager
    cd totesys-final-project
 2. Install dependencies:
     - `create-environment`(automated by `requirements`): Creates a Python virtual environment.
