@@ -296,4 +296,59 @@ def test_password_manager_randomise_password_invalid_input(mock_input, mock_prin
     mock_print.assert_any_call("Invalid name. Must be a valid name containing alphanumeric characters, or any of the following: -/_+=.@!")
     mock_print.assert_any_call("Thank you. Goodbye.")   
 
-# def test_password_manager_entry_none_chars(mock_input, mock_print, mock_write_secret):
+
+@mock_aws
+@patch("builtins.input", side_effect=["", "", "", "x"])
+@patch("builtins.print")
+@patch("src.util.util_func.write_secret")
+def test_password_manager_entry_multi_none_chars(mock_input, mock_print, mock_write_secret):
+
+    password_manager()
+
+    mock_write_secret.assert_has_calls(
+        [
+        call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"),
+        call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"),
+        call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:")
+        ]
+        )
+    
+    mock_print.assert_has_calls(
+        [
+    call("Input cannot be empty, please try again."),   
+    call("Input cannot be empty, please try again."),
+    call("Input cannot be empty, please try again."),
+    call("Thank you. Goodbye.")
+        ]
+        )
+    
+@mock_aws
+@patch("builtins.input", side_effect=["", "e", "", "test-secret_123", "", "user_1", "", "password123", "x"])
+@patch("builtins.print")
+@patch("src.util.util_func.write_secret")
+def test_password_manager_entry_one_none_char(mock_input, mock_print, mock_write_secret):
+
+    password_manager()
+
+    mock_write_secret.assert_has_calls(
+        [
+    call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"),
+    call("Please specify [e]ntry, [r]etrieval, [d]eletion, [l]isting, [u]pdate, r[a]ndomise or e[x]it:"),
+    call("Secret Identifier:"),
+    call("Secret Identifier:"),
+    call("UserID:"),
+    call("UserID:"),
+    call("Password:"),
+    call("Password:")
+        ]
+        )
+    
+    mock_print.assert_has_calls(
+        [
+    call("Input cannot be empty, please try again."),   
+    call("Input cannot be empty, please try again."),
+    call("Input cannot be empty, please try again."),
+    call("Secret saved."),
+    call("Thank you. Goodbye.")
+        ]
+        )
