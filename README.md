@@ -1,7 +1,7 @@
 # Secrets Manager
 
 ## Description
-Terminal based password manager utilising python script and AWS Secrets manager to create, update, delete, list, download and create random passwords.
+Terminal based password manager utilising python script and AWS Secrets Manager to create, update, delete, list, download and create random passwords.
 
 
 ## Technologies used
