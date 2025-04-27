@@ -27,7 +27,7 @@ Password manager tool in Command Line utilising AWS Secrets Manager to create, u
 1. Clone the repository:
    ```bash
    git clone https://github.com/ScrappyNozicka/Secrets-Manager
-   cd totesys-final-project
+   cd secrets-manager
 2. Install dependencies:
     - `create-environment`(automated by `requirements`): Creates a Python virtual environment.
         ```bash
